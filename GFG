@@ -27,3 +27,31 @@ class Solution {
         return ans;
     }
 };
+Question : Top View of binary tree 
+class Solution {
+public:
+    vector<int> topView(Node *root) {
+        queue<pair<Node*,int>>q;
+        map<int,int> map;// map<code>,node->data>
+        q.push({root,0});
+        while(!q.empty()){
+            int n=q.size();
+            while(n--){
+                auto pair=q.front();
+                q.pop();
+                Node* curr=pair.first;
+                int code = pair.second;
+                map.insert({code,curr->data});
+                if(curr->left)
+                   q.push({curr->left,code-1});
+                if(curr->right)
+                    q.push({curr->right,code+1});
+            }
+        }
+        vector<int>ans;
+        for(auto i:map){
+            ans.push_back(i.second);
+        }
+        return ans;
+    }
+};
